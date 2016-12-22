@@ -21,14 +21,13 @@
 
         public void Reset()
         {
-            this.fifoRxBaseAddress.Value = 0x00;
-            this.fifoRxBaseAddress.Write();
+            this.fifoRxBaseAddress.Write(0x00);
         }
 
         public int GetPacketRSSI()
         {
             this.packetRSSSIBank.Read();
-            return this.packetRSSSIBank.Value;
+            return this.packetRSSSIBank.Value - 137;
         }
 
         public byte[] ReadPacketBuffer()
@@ -36,8 +35,7 @@
             this.fifoCurrentPacketAddressBank.Read();
             this.bytesRecievedBank.Read();
 
-            this.fifoPointerAddressBank.Value = this.fifoCurrentPacketAddressBank.Value;
-            this.fifoPointerAddressBank.Write();
+            this.fifoPointerAddressBank.Write(this.fifoCurrentPacketAddressBank.Value);
 
             byte[] bytes = new byte[this.bytesRecievedBank.Value];
 

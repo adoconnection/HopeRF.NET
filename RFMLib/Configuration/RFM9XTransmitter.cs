@@ -1,4 +1,6 @@
-﻿namespace RFMLib.Configuration
+﻿using System.Threading;
+
+namespace RFMLib.Configuration
 {
     public class RFM9XTransmitter
     {
@@ -15,26 +17,21 @@
             this.fifoTxBaseAddress = new TransceiverRegistry(connection, 0x22);
         }
 
-
         public void WritePacketBuffer(byte[] buffer)
         {
-            this.fifoPointerAddressRegistry.Value = 0;
-            this.fifoPointerAddressRegistry.Write();
+            this.fifoPointerAddressRegistry.Write(0x00);
 
             foreach (byte b in buffer)
             {
-                this.fifoRegistry.Value = b;
-                this.fifoRegistry.Write();
+                this.fifoRegistry.Write(b);
             }
 
-            this.payloadLengthRegistry.Value = (byte) buffer.Length;
-            this.payloadLengthRegistry.Write();
+            this.payloadLengthRegistry.Write((byte)buffer.Length);
         }
 
         public void Reset()
         {
-            this.fifoTxBaseAddress.Value = 0x00;
-            this.fifoTxBaseAddress.Write();
+            this.fifoTxBaseAddress.Write(0x00);
         }
     }
 }

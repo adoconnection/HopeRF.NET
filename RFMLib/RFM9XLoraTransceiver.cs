@@ -130,6 +130,11 @@ namespace RFMLib
             }, token);
         }
 
+        public Task<bool> Transmit(byte[] buffer)
+        {
+            return this.Transmit(buffer, CancellationToken.None);
+        }
+        
         public Task<bool> Transmit(byte[] buffer, CancellationToken token)
         {
             return Task.Factory.StartNew(() =>

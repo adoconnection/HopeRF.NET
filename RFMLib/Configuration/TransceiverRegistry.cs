@@ -76,5 +76,11 @@ namespace RFMLib.Configuration
             this.connection.WriteRegister(this.address, this.dataByte);
             this.initialDataByte = this.dataByte;
         }
+
+        public virtual void Write(byte value)
+        {
+            this.connection.WriteRegister(this.address, value);
+            this.initialDataByte = this.dataByte = value;
+        }
     }
 }

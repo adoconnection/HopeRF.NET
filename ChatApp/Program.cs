@@ -59,9 +59,7 @@ namespace ChatApp
 
                             if (rawData != null)
                             {
-                                Console.WriteLine(rawData.RSSI);
-                                Console.WriteLine(rawData.Buffer.Length);
-                                Console.WriteLine(Encoding.UTF8.GetString(rawData.Buffer));
+                                Console.WriteLine(Encoding.UTF8.GetString(rawData.Buffer) + " (RSSI:" + rawData.RSSI + ")");
                             }
                         }
 
@@ -93,16 +91,12 @@ namespace ChatApp
                     Random random = new Random();
 
                     string text = name + ": " + randomText[random.Next(0, randomText.Count)];
-                    Console.WriteLine("Sending " + text);
+                    Console.WriteLine("Sending [" + text + "]");
                     CancellationTokenSource transmitCancellationTokenSource = new CancellationTokenSource();
 
                     Task<bool> transmit = rfm9XLoraTransceiver.Transmit(Encoding.UTF8.GetBytes(text), transmitCancellationTokenSource.Token);
 
-                    if (transmit.Wait(1000))
-                    {
-                        Console.WriteLine("Send OK");
-                    }
-                    else
+                    if (!transmit.Wait(1000))
                     {
                         transmitCancellationTokenSource.Cancel();
                         Console.WriteLine("Send timeout");
