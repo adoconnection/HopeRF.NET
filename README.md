@@ -1,7 +1,7 @@
 # HopeRF.NET
 C# .NET/mono client for RFM95 / RFM98 / SX1276 / SX1278 LORA modules for RaspberryPi and dragino shield
 
-## Out of the box with RX/TX with Dragino GPS/Lora shield without resoldering!
+## Out of the box support for Dragino GPS/Lora shield without resoldering!
 ![dragino](http://wiki.dragino.com/images/d/d6/Lora_GPS_HAT.png)
 
 ## Requirements
