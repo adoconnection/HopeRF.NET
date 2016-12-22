@@ -4,6 +4,20 @@ C# .NET/mono client for RFM95 / RFM98 / SX1276 / SX1278 LORA modules for Raspber
 ## Out of the box with RX/TX with Dragino GPS/Lora shield without resoldering!
 ![dragino](http://wiki.dragino.com/images/d/d6/Lora_GPS_HAT.png)
 
+## Requirements
+* mono 4.4.2
+* enabled SPI
+* wiringpi
+* latest raspberry-sharp-io
+
+## Tested with
+* Raspbian Jessie
+* Raspberry Pi 2
+* Raspberry Pi 3
+
+## Install from zero
+coming soon!
+
 ## Simple transmitter
 ```cs
 TrancieverConnectionFactory trancieverConnectionFactory = new TrancieverConnectionFactory();
