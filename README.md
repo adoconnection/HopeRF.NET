@@ -5,7 +5,7 @@ C# .NET/mono client for RFM95 / RFM98 / SX1276 / SX1278 LORA modules for Raspber
 ![dragino](http://wiki.dragino.com/images/d/d6/Lora_GPS_HAT.png)
 
 ## Requirements
-* mono 4.4.2
+* mono 4.4.2 or newer
 * enabled SPI
 * wiringpi
 * latest raspberry-sharp-io
