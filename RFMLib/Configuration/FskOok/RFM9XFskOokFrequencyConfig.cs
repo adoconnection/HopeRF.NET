@@ -137,9 +137,9 @@
             this.powerRegistry.Read();
             this.paDacRegistry.Read();
 
-            this.regModemConfig1.Read();
-            this.regModemConfig2.Read();
-            this.regModemConfig3.Read();
+          //  this.regModemConfig1.Read();
+          //  this.regModemConfig2.Read();
+          //  this.regModemConfig3.Read();
 
             this.preambleMsb.Read();
             this.preambleLsb.Read();
@@ -154,9 +154,9 @@
             this.powerRegistry.Write();
             this.paDacRegistry.Write();
 
-            this.regModemConfig1.Write();
-            this.regModemConfig2.Write();
-            this.regModemConfig3.Write();
+         //   this.regModemConfig1.Write();
+          //  this.regModemConfig2.Write();
+          //  this.regModemConfig3.Write();
 
             this.preambleMsb.Write();
             this.preambleLsb.Write();

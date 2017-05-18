@@ -14,10 +14,12 @@ namespace SimpleReciever
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Starting fsk");
+
             TrancieverConnectionFactory connectionFactory = new TrancieverConnectionFactory();
             ITransceiverSpiConnection spiConnection = connectionFactory.CreateForDragino();
 
-            ITransceiver transceiver = new RFM9XLoraTransceiver(spiConnection);
+            ITransceiver transceiver = new RFM9XFskOokTransciever(spiConnection);
             transceiver.Initialize();
 
             Console.WriteLine("Listening");

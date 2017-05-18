@@ -162,7 +162,7 @@
             }
         }
 
-        public bool CrcOk
+        public bool CrcError
         {
             get
             {
@@ -175,6 +175,14 @@
             get
             {
                 return this.irqFlagsBank2.GetBit(0);
+            }
+        }
+
+        public string Value
+        {
+            get
+            {
+                return this.irqFlagsBank1.Value + " / " + this.irqFlagsBank2.Value;
             }
         }
 
