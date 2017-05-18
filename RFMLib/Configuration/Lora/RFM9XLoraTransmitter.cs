@@ -2,14 +2,14 @@
 
 namespace RFMLib.Configuration
 {
-    public class RFM9XTransmitter
+    public class RFM9XLoraTransmitter
     {
         private readonly TransceiverRegistry fifoPointerAddressRegistry;
         private readonly TransceiverRegistry fifoRegistry;
         private readonly TransceiverRegistry payloadLengthRegistry;
         private readonly TransceiverRegistry fifoTxBaseAddress;
 
-        public RFM9XTransmitter(ITransceiverSpiConnection connection)
+        public RFM9XLoraTransmitter(ITransceiverSpiConnection connection)
         {
             this.fifoPointerAddressRegistry = new TransceiverRegistry(connection, 0x0D);
             this.fifoRegistry = new TransceiverRegistry(connection, 0x00);

@@ -42,12 +42,16 @@
   <ItemGroup>
     <Compile Include="Configuration\FskOok\FskOokTranscieverMode.cs" />
     <Compile Include="Configuration\FskOok\ModulationType.cs" />
+    <Compile Include="Configuration\FskOok\RFM9XFskOokFrequencyConfig.cs" />
+    <Compile Include="Configuration\FskOok\RFM9XFskOokIRQFalgs.cs" />
     <Compile Include="Configuration\FskOok\RFM9XFskOokOperation.cs" />
-    <Compile Include="Configuration\Lora\RFM9XIRQFalgs.cs" />
+    <Compile Include="Configuration\FskOok\RFM9XFskOokReciever.cs" />
+    <Compile Include="Configuration\FskOok\RFM9XFskOokTransmitter.cs" />
+    <Compile Include="Configuration\Lora\RFM9XLoraIRQFalgs.cs" />
     <Compile Include="Configuration\Lora\RFM9XLoraFrequencyConfig.cs" />
     <Compile Include="Configuration\Lora\RFM9XLoraOperation.cs" />
-    <Compile Include="Configuration\Lora\RFM9XReciever.cs" />
-    <Compile Include="Configuration\Lora\RFM9XTransmitter.cs" />
+    <Compile Include="Configuration\Lora\RFM9XLoraReciever.cs" />
+    <Compile Include="Configuration\Lora\RFM9XLoraTransmitter.cs" />
     <Compile Include="Configuration\Lora\LoraTransceiverMode.cs" />
     <Compile Include="Configuration\TransceiverRegistry.cs" />
     <Compile Include="Connections\ITransceiverSpiConnection.cs" />

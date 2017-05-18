@@ -11,18 +11,18 @@ namespace RFMLib
 
         public RFM9XLoraOperation OperationConfig { get; private set; }
         public RFM9XLoraFrequencyConfig FrequencyConfig { get; private set; }
-        public RFM9XIRQFalgs IRQs { get; private set; }
-        public RFM9XReciever Reciever { get; private set; }
-        public RFM9XTransmitter Transmitter { get; private set; }
+        public RFM9XLoraIRQFalgs IRQs { get; private set; }
+        public RFM9XLoraReciever Reciever { get; private set; }
+        public RFM9XLoraTransmitter Transmitter { get; private set; }
 
         public RFM9XLoraTransceiver(ITransceiverSpiConnection connection)
         {
             this.connection = connection;
             this.OperationConfig = new RFM9XLoraOperation(connection);
             this.FrequencyConfig = new RFM9XLoraFrequencyConfig(connection);
-            this.IRQs = new RFM9XIRQFalgs(connection);
-            this.Reciever = new RFM9XReciever(connection);
-            this.Transmitter = new RFM9XTransmitter(connection);
+            this.IRQs = new RFM9XLoraIRQFalgs(connection);
+            this.Reciever = new RFM9XLoraReciever(connection);
+            this.Transmitter = new RFM9XLoraTransmitter(connection);
         }
 
         public void Initialize()

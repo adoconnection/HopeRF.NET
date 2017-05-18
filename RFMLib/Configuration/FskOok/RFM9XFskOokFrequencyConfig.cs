@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace RFMLib.Configuration
+﻿namespace RFMLib.Configuration.FskOok
 {
-    public class RFM9XLoraFrequencyConfig
+    public class RFM9XFskOokFrequencyConfig
     {
         private readonly TransceiverRegistry frequiencyBank1;
         private readonly TransceiverRegistry frequiencyBank2;
@@ -18,7 +16,7 @@ namespace RFMLib.Configuration
         private readonly TransceiverRegistry regModemConfig2;
         private readonly TransceiverRegistry regModemConfig3;
 
-        public RFM9XLoraFrequencyConfig(ITransceiverSpiConnection connection)
+        public RFM9XFskOokFrequencyConfig(ITransceiverSpiConnection connection)
         {
             this.frequiencyBank1 = new TransceiverRegistry(connection, 0x06);
             this.frequiencyBank2 = new TransceiverRegistry(connection, 0x07);
@@ -27,12 +25,8 @@ namespace RFMLib.Configuration
             this.powerRegistry = new TransceiverRegistry(connection, 0x09);
             this.paDacRegistry = new TransceiverRegistry(connection, 0x4D);
 
-            this.regModemConfig1 = new TransceiverRegistry(connection, 0x1D);
-            this.regModemConfig2 = new TransceiverRegistry(connection, 0x1E);
-            this.regModemConfig3 = new TransceiverRegistry(connection, 0x26);
-
-            this.preambleMsb = new TransceiverRegistry(connection, 0x20);
-            this.preambleLsb = new TransceiverRegistry(connection, 0x21);
+            this.preambleMsb = new TransceiverRegistry(connection, 0x25);
+            this.preambleLsb = new TransceiverRegistry(connection, 0x26);
         }
 
         public bool PaSelect
@@ -45,74 +39,7 @@ namespace RFMLib.Configuration
             {
                 this.powerRegistry.SetBit(7, value);
             }
-        }   
-
-        // lazy temp code
-        public byte Config1
-        {
-            get
-            {
-                return this.regModemConfig1.Value;
-            }
-            set
-            {
-                this.regModemConfig1.Value = value;
-            }
         }
-
-        // lazy temp code
-        public byte Config2
-        {
-            get
-            {
-                return this.regModemConfig2.Value;
-            }
-            set
-            {
-                this.regModemConfig2.Value = value;
-            }
-        }
-
-        // lazy temp code
-        public byte Config3
-        {
-            get
-            {
-                return this.regModemConfig3.Value;
-            }
-            set
-            {
-                this.regModemConfig3.Value = value;
-            }
-        }
-
-
-        // lazy temp code
-        public byte PreambleMsb
-        {
-            get
-            {
-                return this.preambleMsb.Value;
-            }
-            set
-            {
-                this.preambleMsb.Value = value;
-            }
-        }
-
-        // lazy temp code
-        public byte PreambleLsb
-        {
-            get
-            {
-                return this.preambleLsb.Value;
-            }
-            set
-            {
-                this.preambleLsb.Value = value;
-            }
-        }
-
 
         public int Power
         {
@@ -171,6 +98,33 @@ namespace RFMLib.Configuration
                 this.frequiencyBank1.Value = (byte)(frf >> 16);
                 this.frequiencyBank2.Value = (byte)(frf >> 8);
                 this.frequiencyBank3.Value = (byte)(frf >> 0);
+            }
+        }
+
+
+        // lazy temp code
+        public byte PreambleMsb
+        {
+            get
+            {
+                return this.preambleMsb.Value;
+            }
+            set
+            {
+                this.preambleMsb.Value = value;
+            }
+        }
+
+        // lazy temp code
+        public byte PreambleLsb
+        {
+            get
+            {
+                return this.preambleLsb.Value;
+            }
+            set
+            {
+                this.preambleLsb.Value = value;
             }
         }
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,16 +14,14 @@ namespace TestReciever
             TrancieverConnectionFactory trancieverConnectionFactory = new TrancieverConnectionFactory();
             ITransceiverSpiConnection spiConnection = trancieverConnectionFactory.CreateForDragino();
 
-            RFM9XLoraTransceiver rfm9XLoraTransceiver = new RFM9XLoraTransceiver(spiConnection);
-            rfm9XLoraTransceiver.Initialize();
-
-
+            ITransceiver transceiver = new RFM9XFskOokTransciever(spiConnection);
+            transceiver.Initialize();
 
             Console.WriteLine("Listening");
 
             while (true)
             {
-                Task<RawData> recieveTask = rfm9XLoraTransceiver.Recieve();
+                Task<RawData> recieveTask = transceiver.Recieve();
 
                 recieveTask.Wait();
 
@@ -34,7 +30,7 @@ namespace TestReciever
                     string message = Encoding.ASCII.GetString(recieveTask.Result.Buffer);
                     Console.WriteLine(message + " / " + recieveTask.Result.RSSI);
 
-                    Notify(message, recieveTask);
+                    //Notify(message, recieveTask);
                 }
             }
         }

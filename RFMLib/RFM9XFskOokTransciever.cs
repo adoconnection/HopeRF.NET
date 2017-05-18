@@ -1,20 +1,24 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using RFMLib.Configuration.FskOok;
 
 namespace RFMLib
 {
     public class RFM9XFskOokTransciever : ITransceiver
     {
         private readonly ITransceiverSpiConnection connection;
+        public RFM9XFskOokOperation OperationConfig { get; private set; }
+        public RFM9XFskOokFrequencyConfig FrequencyConfig { get; private set; }
+        public RFM9XFskOokIRQFalgs IRQs { get; private set; }
 
         public RFM9XFskOokTransciever(ITransceiverSpiConnection connection)
         {
             this.connection = connection;
-            this.OperationConfig = new RFM9XLoraOperation(connection);
-            this.FrequencyConfig = new RFM9XLoraFrequencyConfig(connection);
-            this.IRQs = new RFM9XIRQFalgs(connection);
-            this.Reciever = new RFM9XReciever(connection);
-            this.Transmitter = new RFM9XTransmitter(connection);
+            this.OperationConfig = new RFM9XFskOokOperation(connection);
+            this.FrequencyConfig = new RFM9XFskOokFrequencyConfig(connection);
+            this.IRQs = new RFM9XFskOokIRQFalgs(connection);
+            //this.Reciever = new RFM9XLoraReciever(connection);
+           // this.Transmitter = new RFM9XTransmitter(connection);
         }
 
         public void Initialize()
@@ -25,11 +29,11 @@ namespace RFMLib
             this.IRQs.Clear();
             this.IRQs.Read();
 
-            this.OperationConfig.Mode = TransceiverMode.Sleep;
+            this.OperationConfig.Mode = FskOokTranscieverMode.Sleep;
             this.OperationConfig.Write();
             Thread.Sleep(100);
 
-            this.OperationConfig.IsLongRange = true;
+            this.OperationConfig.IsFskOokMode = true;
             this.OperationConfig.Write();
             Thread.Sleep(100);
 
@@ -45,9 +49,9 @@ namespace RFMLib
             this.FrequencyConfig.Power = 15;
             this.FrequencyConfig.MaxPower = 7;
             this.FrequencyConfig.PaDac = 7;
-            this.FrequencyConfig.Config1 = 0x72; // lazy blind-copy-pasted from cpp code
-            this.FrequencyConfig.Config2 = 0x74; // lazy blind-copy-pasted from cpp code
-            this.FrequencyConfig.Config3 = 0x00; // lazy blind-copy-pasted from cpp code
+         //   this.FrequencyConfig.Config1 = 0x72; // lazy blind-copy-pasted from cpp code
+            // this.FrequencyConfig.Config2 = 0x74; // lazy blind-copy-pasted from cpp code
+            // this.FrequencyConfig.Config3 = 0x00; // lazy blind-copy-pasted from cpp code
             this.FrequencyConfig.PreambleMsb = 8 >> 8; // lazy blind-copy-pasted from cpp code
             this.FrequencyConfig.PreambleLsb = 8 & 0xff; // lazy blind-copy-pasted from cpp code
             this.FrequencyConfig.Frequency = 434000000;

@@ -2,11 +2,11 @@
 
 namespace RFMLib.Configuration
 {
-    public class RFM9XIRQFalgs
+    public class RFM9XLoraIRQFalgs
     {
         private readonly TransceiverRegistry irqFlagsBank;
 
-        public RFM9XIRQFalgs(ITransceiverSpiConnection connection)
+        public RFM9XLoraIRQFalgs(ITransceiverSpiConnection connection)
         {
             this.irqFlagsBank = new TransceiverRegistry(connection, 0x12);
         }

@@ -1,6 +1,6 @@
 ﻿namespace RFMLib.Configuration
 {
-    public class RFM9XReciever
+    public class RFM9XLoraReciever
     {
         private readonly TransceiverRegistry bytesRecievedBank;
         private readonly TransceiverRegistry fifoCurrentPacketAddressBank;
@@ -9,7 +9,7 @@
         private readonly TransceiverRegistry packetRSSSIBank;
         private readonly TransceiverRegistry fifoRxBaseAddress;
 
-        public RFM9XReciever(ITransceiverSpiConnection connection)
+        public RFM9XLoraReciever(ITransceiverSpiConnection connection)
         {
             this.bytesRecievedBank = new TransceiverRegistry(connection, 0x13);
             this.fifoCurrentPacketAddressBank = new TransceiverRegistry(connection, 0x10);
