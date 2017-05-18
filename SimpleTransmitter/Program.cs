@@ -12,17 +12,17 @@ namespace SimpleTransmitter
     {
         static void Main(string[] args)
         {
-            TrancieverConnectionFactory trancieverConnectionFactory = new TrancieverConnectionFactory();
-            ITransceiverSpiConnection spiConnection = trancieverConnectionFactory.CreateForDragino();
+            TrancieverConnectionFactory connectionFactory = new TrancieverConnectionFactory();
+            ITransceiverSpiConnection spiConnection = connectionFactory.CreateForDragino();
 
-            RFM9XLoraTransceiver rfm9XLoraTransceiver = new RFM9XLoraTransceiver(spiConnection);
-            rfm9XLoraTransceiver.Initialize();
+            ITransceiver transceiver = new RFM9XLoraTransceiver(spiConnection);
+            transceiver.Initialize();
 
             while (true)
             {
                 Console.Write("Sending..");
 
-                Task<bool> transmitTask = rfm9XLoraTransceiver.Transmit(Encoding.ASCII.GetBytes("All your base are belogn to us!"));
+                Task<bool> transmitTask = transceiver.Transmit(Encoding.ASCII.GetBytes("Lora1/" + DateTime.Now.Second));
                 transmitTask.Wait();
 
                 Console.WriteLine("OK");

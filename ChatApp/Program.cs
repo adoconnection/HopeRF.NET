@@ -23,7 +23,7 @@ namespace ChatApp
             Console.WriteLine("FrequencyConfig.PaSelect=" + rfm9XLoraTransceiver.FrequencyConfig.PaSelect);
             Console.WriteLine("FrequencyConfig.Power=" + rfm9XLoraTransceiver.FrequencyConfig.Power);
             Console.WriteLine("OperationConfig.Mode=" + rfm9XLoraTransceiver.OperationConfig.Mode);
-            Console.WriteLine("OperationConfig.IsLongRange = " + rfm9XLoraTransceiver.OperationConfig.IsLongRange);
+            Console.WriteLine("OperationConfig.IsLoraMode = " + rfm9XLoraTransceiver.OperationConfig.IsLoraMode);
             Console.WriteLine("OperationConfig.IsLowFrequencyModeOn=" + rfm9XLoraTransceiver.OperationConfig.IsLowFrequencyModeOn);
             Console.WriteLine("IRQs.CadDetected=" + rfm9XLoraTransceiver.IRQs.CadDetected);
             Console.WriteLine("IRQs.FhssChangeChannel=" + rfm9XLoraTransceiver.IRQs.FhssChangeChannel);

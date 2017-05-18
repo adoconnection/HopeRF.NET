@@ -14,7 +14,7 @@ namespace RFMLib.Configuration
             this.fifoPointerAddressRegistry = new TransceiverRegistry(connection, 0x0D);
             this.fifoRegistry = new TransceiverRegistry(connection, 0x00);
             this.payloadLengthRegistry = new TransceiverRegistry(connection, 0x22);
-            this.fifoTxBaseAddress = new TransceiverRegistry(connection, 0x22);
+            this.fifoTxBaseAddress = new TransceiverRegistry(connection, 0x0E);
         }
 
         public void WritePacketBuffer(byte[] buffer)

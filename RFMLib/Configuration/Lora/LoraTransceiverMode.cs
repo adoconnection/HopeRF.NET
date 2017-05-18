@@ -1,6 +1,6 @@
 ﻿namespace RFMLib.Configuration
 {
-    public enum TransceiverMode
+    public enum LoraTransceiverMode
     {
         Sleep = 0,
         StandBy = 1,

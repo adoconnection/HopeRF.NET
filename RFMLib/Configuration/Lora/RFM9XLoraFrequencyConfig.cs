@@ -12,6 +12,7 @@ namespace RFMLib.Configuration
         private readonly TransceiverRegistry preambleLsb;
 
         private readonly TransceiverRegistry powerRegistry;
+        private readonly TransceiverRegistry paDacRegistry;
 
         private readonly TransceiverRegistry regModemConfig1;
         private readonly TransceiverRegistry regModemConfig2;
@@ -22,7 +23,9 @@ namespace RFMLib.Configuration
             this.frequiencyBank1 = new TransceiverRegistry(connection, 0x06);
             this.frequiencyBank2 = new TransceiverRegistry(connection, 0x07);
             this.frequiencyBank3 = new TransceiverRegistry(connection, 0x08);
+
             this.powerRegistry = new TransceiverRegistry(connection, 0x09);
+            this.paDacRegistry = new TransceiverRegistry(connection, 0x4D);
 
             this.regModemConfig1 = new TransceiverRegistry(connection, 0x1D);
             this.regModemConfig2 = new TransceiverRegistry(connection, 0x1E);
@@ -123,6 +126,31 @@ namespace RFMLib.Configuration
             }
         }
 
+        public int MaxPower
+        {
+            get
+            {
+                return (this.powerRegistry.Value & 0x70) >> 4; // 01110000
+            }
+            set
+            {
+                this.powerRegistry.Value = (byte)((this.powerRegistry.Value & 0x8F) | (byte)(value << 4)); // 10001111
+            }
+        }
+
+
+        public int PaDac
+        {
+            get
+            {
+                return (this.paDacRegistry.Value & 0x07); // 00000111
+            }
+            set
+            {
+                this.paDacRegistry.Value = (byte)((this.paDacRegistry.Value & 0xF8) | (byte)value); // 11111000
+            }
+        }
+
         public long Frequency
         {
             get
@@ -153,6 +181,7 @@ namespace RFMLib.Configuration
             this.frequiencyBank3.Read();
 
             this.powerRegistry.Read();
+            this.paDacRegistry.Read();
 
             this.regModemConfig1.Read();
             this.regModemConfig2.Read();
@@ -169,6 +198,7 @@ namespace RFMLib.Configuration
             this.frequiencyBank3.Write();
 
             this.powerRegistry.Write();
+            this.paDacRegistry.Write();
 
             this.regModemConfig1.Write();
             this.regModemConfig2.Write();

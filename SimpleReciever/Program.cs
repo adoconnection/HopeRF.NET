@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,21 +14,23 @@ namespace SimpleReciever
     {
         static void Main(string[] args)
         {
-            TrancieverConnectionFactory trancieverConnectionFactory = new TrancieverConnectionFactory();
-            ITransceiverSpiConnection spiConnection = trancieverConnectionFactory.CreateForDragino();
+            TrancieverConnectionFactory connectionFactory = new TrancieverConnectionFactory();
+            ITransceiverSpiConnection spiConnection = connectionFactory.CreateForDragino();
 
-            RFM9XLoraTransceiver rfm9XLoraTransceiver = new RFM9XLoraTransceiver(spiConnection);
-            rfm9XLoraTransceiver.Initialize();
+            ITransceiver transceiver = new RFM9XLoraTransceiver(spiConnection);
+            transceiver.Initialize();
+
+            Console.WriteLine("Listening");
 
             while (true)
             {
-                Task<RawData> recieveTask = rfm9XLoraTransceiver.Recieve();
+                Task<RawData> recieveTask = transceiver.Recieve();
 
                 recieveTask.Wait();
 
                 if (recieveTask.Result != null)
                 {
-                    Console.WriteLine(Encoding.ASCII.GetString(recieveTask.Result.Buffer));
+                    Console.WriteLine(Encoding.ASCII.GetString(recieveTask.Result.Buffer) + " / " + recieveTask.Result.RSSI);
                 }
             }
         }

@@ -11,11 +11,11 @@ namespace RFMLib.Configuration
             this.modeBank = new TransceiverRegistry(connection, 0x01);
         }
 
-        public TransceiverMode Mode
+        public LoraTransceiverMode Mode
         {
             get
             {
-                return (TransceiverMode) (this.modeBank.Value & 0x07); // 00000111
+                return (LoraTransceiverMode) (this.modeBank.Value & 0x07); // 00000111
             }
             set
             {
@@ -23,7 +23,7 @@ namespace RFMLib.Configuration
             }
         }
 
-        public bool IsLongRange
+        public bool IsLoraMode
         {
             get
             {

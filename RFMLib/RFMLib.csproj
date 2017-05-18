@@ -40,18 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\RFM9XIRQFalgs.cs" />
-    <Compile Include="Configuration\RFM9XLoraFrequencyConfig.cs" />
-    <Compile Include="Configuration\RFM9XLoraOperation.cs" />
-    <Compile Include="Configuration\RFM9XReciever.cs" />
-    <Compile Include="Configuration\RFM9XTransmitter.cs" />
-    <Compile Include="Configuration\TransceiverMode.cs" />
+    <Compile Include="Configuration\FskOok\FskOokTranscieverMode.cs" />
+    <Compile Include="Configuration\FskOok\ModulationType.cs" />
+    <Compile Include="Configuration\FskOok\RFM9XFskOokOperation.cs" />
+    <Compile Include="Configuration\Lora\RFM9XIRQFalgs.cs" />
+    <Compile Include="Configuration\Lora\RFM9XLoraFrequencyConfig.cs" />
+    <Compile Include="Configuration\Lora\RFM9XLoraOperation.cs" />
+    <Compile Include="Configuration\Lora\RFM9XReciever.cs" />
+    <Compile Include="Configuration\Lora\RFM9XTransmitter.cs" />
+    <Compile Include="Configuration\Lora\LoraTransceiverMode.cs" />
     <Compile Include="Configuration\TransceiverRegistry.cs" />
     <Compile Include="Connections\ITransceiverSpiConnection.cs" />
     <Compile Include="Connections\TransceiverSpiConnection.cs" />
     <Compile Include="Extenders\IntExtender.cs" />
+    <Compile Include="ITransceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RawData.cs" />
+    <Compile Include="RFM9XFskOokTransciever.cs" />
     <Compile Include="RFM9XLoraTransceiver.cs" />
     <Compile Include="TrancieverConnectionFactory.cs" />
   </ItemGroup>
@@ -77,6 +82,7 @@
       <Name>Raspberry.IO</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

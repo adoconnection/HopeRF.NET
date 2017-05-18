@@ -5,7 +5,7 @@ using RFMLib.Configuration;
 
 namespace RFMLib
 {
-    public class RFM9XLoraTransceiver
+    public class RFM9XLoraTransceiver : ITransceiver
     {
         private readonly ITransceiverSpiConnection connection;
 
@@ -32,19 +32,27 @@ namespace RFMLib
             this.FrequencyConfig.Read();
             this.IRQs.Clear();
             this.IRQs.Read();
+
+            this.OperationConfig.Mode = LoraTransceiverMode.Sleep;
+            this.OperationConfig.Write();
+            Thread.Sleep(100);
+
+            this.OperationConfig.IsLoraMode = true;
+            this.OperationConfig.Write();
+            Thread.Sleep(100);
+
+
             this.Reciever.Reset();
             this.Transmitter.Reset();
 
-            this.OperationConfig.Mode = TransceiverMode.StandBy;
             this.OperationConfig.IsLowFrequencyModeOn = false;
             this.OperationConfig.Write();
             Thread.Sleep(100);
 
-            this.OperationConfig.IsLongRange = true;
-            this.OperationConfig.Write();
-            Thread.Sleep(100);
-
             this.FrequencyConfig.PaSelect = true;
+            this.FrequencyConfig.Power = 15;
+            this.FrequencyConfig.MaxPower = 7;
+            this.FrequencyConfig.PaDac = 7;
             this.FrequencyConfig.Config1 = 0x72; // lazy blind-copy-pasted from cpp code
             this.FrequencyConfig.Config2 = 0x74; // lazy blind-copy-pasted from cpp code
             this.FrequencyConfig.Config3 = 0x00; // lazy blind-copy-pasted from cpp code
@@ -58,7 +66,7 @@ namespace RFMLib
 
         public void StandBy()
         {
-            this.OperationConfig.Mode = TransceiverMode.StandBy;
+            this.OperationConfig.Mode = LoraTransceiverMode.StandBy;
             this.OperationConfig.Write();
             Thread.Sleep(100);
         }
@@ -72,10 +80,11 @@ namespace RFMLib
         {
             return Task.Factory.StartNew(() =>
             {
-                this.OperationConfig.Mode = TransceiverMode.FrequencySynthesisReceive;
+                this.OperationConfig.Mode = LoraTransceiverMode.FrequencySynthesisReceive;
                 this.OperationConfig.Write();
+                Thread.Sleep(100);
 
-                this.OperationConfig.Mode = TransceiverMode.ReceiveContinuous;
+                this.OperationConfig.Mode = LoraTransceiverMode.ReceiveContinuous;
                 this.OperationConfig.Write();
                 this.IRQs.Clear();
 
@@ -86,6 +95,9 @@ namespace RFMLib
                     if (token.IsCancellationRequested)
                     {
                         this.IRQs.Clear();
+                        this.OperationConfig.Mode = LoraTransceiverMode.StandBy;
+                        this.OperationConfig.Write();
+
                         return null;
                     }
 
@@ -94,12 +106,28 @@ namespace RFMLib
                     if (this.IRQs.PayloadCrcError)
                     {
                         this.IRQs.Clear();
+
+                        this.OperationConfig.Read();
+
+                        if (this.OperationConfig.Mode != LoraTransceiverMode.ReceiveContinuous)
+                        {
+                            Console.WriteLine("crc - " + this.OperationConfig.Mode);
+                        }
+
                         return null;
                     }
 
                     if (this.IRQs.RxTimeout)
                     {
                         this.IRQs.Clear();
+
+                        this.OperationConfig.Read();
+
+                        if (this.OperationConfig.Mode != LoraTransceiverMode.ReceiveContinuous)
+                        {
+                            Console.WriteLine("RxTimeout - " + this.OperationConfig.Mode);
+                        }
+
                         return null;
                     }
 
@@ -144,7 +172,7 @@ namespace RFMLib
 
                 this.Transmitter.WritePacketBuffer(buffer);
 
-                this.OperationConfig.Mode = TransceiverMode.Transmit;
+                this.OperationConfig.Mode = LoraTransceiverMode.Transmit;
                 this.OperationConfig.Write();
 
                 while (true)
@@ -159,12 +187,12 @@ namespace RFMLib
 
                     this.OperationConfig.Read();
 
-                    if (this.OperationConfig.Mode == TransceiverMode.Transmit)
+                    if (this.OperationConfig.Mode == LoraTransceiverMode.Transmit)
                     {
                         continue;
                     }
                     
-                    if (this.OperationConfig.Mode == TransceiverMode.StandBy)
+                    if (this.OperationConfig.Mode == LoraTransceiverMode.StandBy)
                     {
                         this.IRQs.Read();
                         return this.IRQs.TxDone;
@@ -189,7 +217,7 @@ namespace RFMLib
         /*
         public Task<bool> Transmit(byte[] data)
         {
-            this.OperationConfig.Mode = TransceiverMode.Transmit;
+            this.OperationConfig.Mode = LoraTransceiverMode.Transmit;
             this.OperationConfig.Write();
         }*/
     }
