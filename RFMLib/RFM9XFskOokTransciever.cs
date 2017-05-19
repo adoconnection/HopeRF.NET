@@ -24,11 +24,16 @@ namespace RFMLib
             this.Transmitter = new RFM9XFskOokTransmitter(connection);
         }
 
+        //  https://developer.mbed.org/questions/60994/Continuous-setup-works-with-LoRa-not-wit/
+
         public void Initialize()
         {
+
+
             this.connection.Reset();
             this.OperationConfig.Read();
             this.FrequencyConfig.Read();
+
             this.IRQs.Clear();
             this.IRQs.Read();
 
@@ -50,18 +55,18 @@ namespace RFMLib
             this.OperationConfig.Write();
             Thread.Sleep(100);
 
-            
+            this.FrequencyConfig.Frequency = 434000000;
 
-            //this.FrequencyConfig.PaSelect = true;
-           // this.FrequencyConfig.Power = 15;
-          //  this.FrequencyConfig.MaxPower = 7;
-           // this.FrequencyConfig.PaDac = 7;
-         //   this.FrequencyConfig.Config1 = 0x72; // lazy blind-copy-pasted from cpp code
+            this.FrequencyConfig.PaSelect = true;
+             this.FrequencyConfig.Power = 15;
+            //  this.FrequencyConfig.MaxPower = 7;
+            // this.FrequencyConfig.PaDac = 7;
+            //   this.FrequencyConfig.Config1 = 0x72; // lazy blind-copy-pasted from cpp code
             // this.FrequencyConfig.Config2 = 0x74; // lazy blind-copy-pasted from cpp code
             // this.FrequencyConfig.Config3 = 0x00; // lazy blind-copy-pasted from cpp code
-          //  this.FrequencyConfig.PreambleMsb = 8 >> 8; // lazy blind-copy-pasted from cpp code
-          //  this.FrequencyConfig.PreambleLsb = 8 & 0xff; // lazy blind-copy-pasted from cpp code
-            this.FrequencyConfig.Frequency = 434000000;
+            //  this.FrequencyConfig.PreambleMsb = 8 >> 8; // lazy blind-copy-pasted from cpp code
+            //  this.FrequencyConfig.PreambleLsb = 8 & 0xff; // lazy blind-copy-pasted from cpp code
+
             this.FrequencyConfig.Write();
 
             Thread.Sleep(100);
